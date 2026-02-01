@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love Quest 💘</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+        }
+
+        .card {
+            background: white;
+            width: 340px;
+            padding: 24px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: #e63946;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .game-area {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .heart {
+            font-size: 28px;
+            background: #fff0f3;
+            border-radius: 16px;
+            padding: 18px 0;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+            user-select: none;
+        }
+
+        .heart:hover {
+            transform: scale(1.1);
+            background: #ffd6e0;
+        }
+
+        .message {
+            font-size: 14px;
+            min-height: 40px;
+        }
+
+        .final {
+            display: none;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        button {
+            margin-top: 16px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: none;
+            background: #e63946;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>Cinta Quest 💘</h1>
+        <p>Find all the hearts to unlock my pintu hati hehe.</p>
+
+        <div class="game-area" id="game"></div>
+
+        <div class="message" id="message"></div>
+
+        <div class="final" id="final">
+            <p>Okay… cinta win 😳</p>
+            <h1>Will you go on a date with baby, sayang? 💕</h1>
+            <button onclick="goToLink()">Yes baby 💖</button>
+        </div>
+    </div>
+
+    <script>
+        const game = document.getElementById('game');
+        const message = document.getElementById('message');
+        const final = document.getElementById('final');
+
+        const flirtyMessages = [
+            "Careful cinta… you're stealing my heart baby 😏",
+            "awww u soo cutee, keep going sayang 💓",
+            "Sayang!, stop being cute 🫣",
+            "Another heart cinta? 💕",
+            "Alololo nyomelnya yang tekan nii😳",
+            "Hey hey.. My cutie babyy 😌",
+            "Woahh..my cintaaaa i love youu💘",
+            "Omg u so cute, smile sayang..hehe🔥",
+            "Cinta, u press hearts like you press mine, sayang 🥺",
+            "Okay this is so cute 😆"
+        ];
+
+        let found = 0;
+        const total = 6;
+
+        function startGame() {
+            game.innerHTML = '';
+            message.textContent = '';
+            final.style.display = 'none';
+            found = 0;
+
+            for (let i = 0; i < 9; i++) {
+                const div = document.createElement('div');
+                div.className = 'heart';
+                div.textContent = '❓';
+                div.dataset.hasHeart = i < total ? 'yes' : 'no';
+
+                div.addEventListener('click', () => {
+                    if (div.textContent !== '❓') return;
+
+                    if (div.dataset.hasHeart === 'yes') {
+                        div.textContent = '❤️';
+                        found++;
+                        message.textContent = flirtyMessages.splice(Math.floor(Math.random() * flirtyMessages.length), 1)[0] || "You already took all my hearts 💖";
+
+                        if (found === total) {
+                            setTimeout(() => {
+                                final.style.display = 'block';
+                            }, 600);
+                        }
+                    } else {
+                        div.textContent = '💔';
+                        message.textContent = "Ouch… wrong heart la sayang 😅 try again.";
+                    }
+                });
+
+                game.appendChild(div);
+            }
+        }
+
+        function goToLink() {
+            window.location.href = 'https://mtaufik04b5-jpg.github.io/dating-invite/';
+        }
+
+        startGame();
+    </script>
+</body>
+
+</html>
